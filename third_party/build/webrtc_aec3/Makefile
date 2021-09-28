@@ -128,6 +128,7 @@ export WEBRTC_AEC3_OBJS = \
 	modules/audio_processing/agc2/rnn_vad/pitch_search.o \
 	modules/audio_processing/agc2/rnn_vad/spectral_features_internal.o \
 	modules/audio_processing/agc2/rnn_vad/spectral_features.o \
+	modules/audio_processing/agc2/rnn_vad/rnn_vector_math_avx2.o \
 	modules/audio_processing/ns/fast_math.o \
 	modules/audio_processing/ns/histograms.o \
 	modules/audio_processing/ns/noise_estimator.o \

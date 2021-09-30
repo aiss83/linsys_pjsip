@@ -43,7 +43,12 @@ export WEBRTC_AEC3_OBJS = \
 	modules/audio_processing/gain_controller2.o \
 	modules/audio_processing/high_pass_filter.o \
 	modules/audio_processing/splitting_filter.o \
+	modules/audio_processing/residual_echo_detector.o \
 	modules/audio_processing/three_band_filter_bank.o \
+	modules/audio_processing/echo_detector/circular_buffer.o \
+	modules/audio_processing/echo_detector/mean_variance_estimator.o \
+	modules/audio_processing/echo_detector/moving_max.o \
+	modules/audio_processing/echo_detector/normalized_covariance_estimator.o \
 	modules/audio_processing/aec3/adaptive_fir_filter_erl.o \
 	modules/audio_processing/aec3/adaptive_fir_filter.o \
 	modules/audio_processing/aec3/aec_state.o \
@@ -104,6 +109,7 @@ export WEBRTC_AEC3_OBJS = \
 	modules/audio_processing/agc2/adaptive_mode_level_estimator.o \
 	modules/audio_processing/agc2/biquad_filter.o \
 	modules/audio_processing/agc2/compute_interpolated_gain_curve.o \
+	modules/audio_processing/agc2/agc2_testing_common.o \
 	modules/audio_processing/agc2/cpu_features.o \
 	modules/audio_processing/agc2/down_sampler.o \
 	modules/audio_processing/agc2/fixed_digital_level_estimator.o \
@@ -148,6 +154,7 @@ export WEBRTC_AEC3_OBJS = \
 	modules/audio_processing/utility/pffft_wrapper.o \
 	rtc_base/checks.o \
 	rtc_base/logging.o \
+	rtc_base/random.o \
 	rtc_base/platform_thread_types.o \
 	rtc_base/race_checker.o \
 	rtc_base/string_encode.o \

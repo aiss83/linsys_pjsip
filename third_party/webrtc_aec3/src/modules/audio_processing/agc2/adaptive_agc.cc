@@ -42,6 +42,10 @@ AvailableCpuFeatures GetAllowedCpuFeatures(
   if (!config.neon_allowed) {
     features.neon = false;
   }
+
+  /* Todo: this doesn't work correct way, so permanent disable AVX2 */
+  features.avx2 = false;
+
   return features;
 }
 

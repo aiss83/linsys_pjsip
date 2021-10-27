@@ -77,20 +77,20 @@ DIRS += yuv
 endif
 endif
 
-ifneq (1,1)
+ifneq (,1)
 ifeq (0,1)
 # External webrtc
 else
 DIRS += webrtc
 WEBRTC_OTHER_CFLAGS = -fexceptions -DWEBRTC_POSIX=1 
-ifneq ($(findstring sse2,),)
+ifneq ($(findstring sse2,sse2),)
     WEBRTC_SRC = \
     	      modules/audio_processing/aec/aec_core_sse2.o		 \
 	      modules/audio_processing/aec/aec_rdft_sse2.o	         \
 	      modules/audio_processing/aecm/aecm_core_c.o	         \
 	      modules/audio_processing/ns/nsx_core_c.o	                 \
 	      system_wrappers/source/cpu_features.o
-else ifneq ($(findstring neon,),)
+else ifneq ($(findstring neon,sse2),)
     WEBRTC_SRC = \
        	      modules/audio_processing/aec/aec_core_neon.o               \
 	      modules/audio_processing/aec/aec_rdft_neon.o               \
@@ -102,7 +102,7 @@ else ifneq ($(findstring neon,),)
 	      common_audio/signal_processing/downsample_fast_neon.o      \
 	      common_audio/signal_processing/min_max_operations_neon.o
     WEBRTC_OTHER_CFLAGS += -DWEBRTC_HAS_NEON
-else ifneq ($(findstring mips,),)
+else ifneq ($(findstring mips,sse2),)
     WEBRTC_SRC = \
               modules/audio_processing/aec/aec_core_mips.o               \
 	      modules/audio_processing/aec/aec_rdft_mips.o               \

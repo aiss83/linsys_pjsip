@@ -18,6 +18,7 @@ namespace webrtc {
 
 // Computes the power spectrum of the data.
 void FftData::SpectrumAVX2(rtc::ArrayView<float> power_spectrum) const {
+#ifdef AVX2_EXTENSIONS_ENABLED
   RTC_DCHECK_EQ(kFftLengthBy2Plus1, power_spectrum.size());
   for (size_t k = 0; k < kFftLengthBy2; k += 8) {
     __m256 r = _mm256_loadu_ps(&re[k]);
@@ -28,6 +29,7 @@ void FftData::SpectrumAVX2(rtc::ArrayView<float> power_spectrum) const {
   }
   power_spectrum[kFftLengthBy2] = re[kFftLengthBy2] * re[kFftLengthBy2] +
                                   im[kFftLengthBy2] * im[kFftLengthBy2];
+#endif
 }
 
 }  // namespace webrtc

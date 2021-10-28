@@ -21,6 +21,7 @@ float SincResampler::Convolve_AVX2(const float* input_ptr,
                                    const float* k1,
                                    const float* k2,
                                    double kernel_interpolation_factor) {
+#ifdef AVX2_EXTENSIONS_ENABLED
   __m256 m_input;
   __m256 m_sums1 = _mm256_setzero_ps();
   __m256 m_sums2 = _mm256_setzero_ps();
@@ -61,6 +62,9 @@ float SincResampler::Convolve_AVX2(const float* input_ptr,
                                    _mm_shuffle_ps(m128_sums2, m128_sums2, 1)));
 
   return result;
+#else
+  return .0f;
+#endif
 }
 
 }  // namespace webrtc

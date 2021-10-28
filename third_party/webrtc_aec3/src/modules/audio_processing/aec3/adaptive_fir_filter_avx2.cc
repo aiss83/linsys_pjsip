@@ -23,6 +23,7 @@ void ComputeFrequencyResponse_Avx2(
     size_t num_partitions,
     const std::vector<std::vector<FftData>>& H,
     std::vector<std::array<float, kFftLengthBy2Plus1>>* H2) {
+#ifdef AVX2_EXTENSIONS_ENABLED
   for (auto& H2_ch : *H2) {
     H2_ch.fill(0.f);
   }
@@ -46,6 +47,7 @@ void ComputeFrequencyResponse_Avx2(
       (*H2)[p][kFftLengthBy2] = std::max((*H2)[p][kFftLengthBy2], H2_new);
     }
   }
+#endif
 }
 
 // Adapts the filter partitions.
@@ -53,6 +55,7 @@ void AdaptPartitions_Avx2(const RenderBuffer& render_buffer,
                           const FftData& G,
                           size_t num_partitions,
                           std::vector<std::vector<FftData>>* H) {
+#ifdef AVX2_EXTENSIONS_ENABLED
   rtc::ArrayView<const std::vector<FftData>> render_buffer_data =
       render_buffer.GetFftBuffer();
   const size_t num_render_channels = render_buffer_data[0].size();
@@ -113,6 +116,7 @@ void AdaptPartitions_Avx2(const RenderBuffer& render_buffer,
     X_partition = 0;
     limit = lim2;
   } while (p < lim2);
+#endif
 }
 
 // Produces the filter output (AVX2 variant).
@@ -120,6 +124,7 @@ void ApplyFilter_Avx2(const RenderBuffer& render_buffer,
                       size_t num_partitions,
                       const std::vector<std::vector<FftData>>& H,
                       FftData* S) {
+#ifdef AVX2_EXTENSIONS_ENABLED
   RTC_DCHECK_GE(H.size(), H.size() - 1);
   S->re.fill(0.f);
   S->im.fill(0.f);
@@ -181,6 +186,7 @@ void ApplyFilter_Avx2(const RenderBuffer& render_buffer,
     limit = lim2;
     X_partition = 0;
   } while (p < lim2);
+#endif
 }
 
 }  // namespace aec3

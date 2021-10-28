@@ -21,6 +21,7 @@ namespace aec3 {
 
 // Elementwise square root.
 void VectorMath::SqrtAVX2(rtc::ArrayView<float> x) {
+#ifdef AVX2_EXTENSIONS_ENABLED
   const int x_size = static_cast<int>(x.size());
   const int vector_limit = x_size >> 3;
 
@@ -34,12 +35,14 @@ void VectorMath::SqrtAVX2(rtc::ArrayView<float> x) {
   for (; j < x_size; ++j) {
     x[j] = sqrtf(x[j]);
   }
+#endif
 }
 
 // Elementwise vector multiplication z = x * y.
 void VectorMath::MultiplyAVX2(rtc::ArrayView<const float> x,
                               rtc::ArrayView<const float> y,
                               rtc::ArrayView<float> z) {
+#ifdef AVX2_EXTENSIONS_ENABLED
   RTC_DCHECK_EQ(z.size(), x.size());
   RTC_DCHECK_EQ(z.size(), y.size());
   const int x_size = static_cast<int>(x.size());
@@ -56,11 +59,13 @@ void VectorMath::MultiplyAVX2(rtc::ArrayView<const float> x,
   for (; j < x_size; ++j) {
     z[j] = x[j] * y[j];
   }
+#endif
 }
 
 // Elementwise vector accumulation z += x.
 void VectorMath::AccumulateAVX2(rtc::ArrayView<const float> x,
                                 rtc::ArrayView<float> z) {
+#ifdef AVX2_EXTENSIONS_ENABLED
   RTC_DCHECK_EQ(z.size(), x.size());
   const int x_size = static_cast<int>(x.size());
   const int vector_limit = x_size >> 3;
@@ -76,6 +81,7 @@ void VectorMath::AccumulateAVX2(rtc::ArrayView<const float> x,
   for (; j < x_size; ++j) {
     z[j] += x[j];
   }
+#endif
 }
 
 }  // namespace aec3

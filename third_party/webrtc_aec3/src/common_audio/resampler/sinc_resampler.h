@@ -112,10 +112,12 @@ class SincResampler {
                             const float* k1,
                             const float* k2,
                             double kernel_interpolation_factor);
+#if defined(WEBRTC_ENABLE_AVX2)
   static float Convolve_AVX2(const float* input_ptr,
                              const float* k1,
                              const float* k2,
                              double kernel_interpolation_factor);
+#endif  // WEBRTC_ENABLE_AVX2
 #elif defined(WEBRTC_HAS_NEON)
   static float Convolve_NEON(const float* input_ptr,
                              const float* k1,

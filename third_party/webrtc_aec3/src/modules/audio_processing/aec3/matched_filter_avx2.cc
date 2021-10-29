@@ -25,7 +25,7 @@ void MatchedFilterCore_AVX2(size_t x_start_index,
                             rtc::ArrayView<float> h,
                             bool* filters_updated,
                             float* error_sum) {
-#ifdef AVX2_EXTENSIONS_ENABLED
+#if defined(WEBRTC_ENABLE_AVX2)
   const int h_size = static_cast<int>(h.size());
   const int x_size = static_cast<int>(x.size());
   RTC_DCHECK_EQ(0, h_size % 8);
@@ -127,7 +127,7 @@ void MatchedFilterCore_AVX2(size_t x_start_index,
 
     x_start_index = x_start_index > 0 ? x_start_index - 1 : x_size - 1;
   }
-#endif
+#endif  // WEBRTC_ENABLE_AVX2
 }
 
 }  // namespace aec3

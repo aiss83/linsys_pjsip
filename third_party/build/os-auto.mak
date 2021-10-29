@@ -132,6 +132,7 @@ ifneq ($(findstring sse2,sse2),)
     export WEBRTC_AEC3_SRC = \
 	common_audio/resampler/sinc_resampler_sse.o \
 	common_audio/third_party/ooura/fft_size_128/ooura_fft_sse2.o
+ifeq (@ac_webrtc_avx2@, 1)
     export WEBRTC_AEC3_SRC += \
 	common_audio/resampler/sinc_resampler_avx2.o \
 	modules/audio_processing/aec3/adaptive_fir_filter_erl_avx2.o \
@@ -140,7 +141,10 @@ ifneq ($(findstring sse2,sse2),)
 	modules/audio_processing/aec3/matched_filter_avx2.o \
 	modules/audio_processing/aec3/vector_math_avx2.o \
 	modules/audio_processing/agc2/rnn_vad/rnn_vector_math_avx2.o
-    WEBRTC_AEC3_OTHER_CFLAGS += -mfma
+	WEBRTC_AEC3_OTHER_CFLAGS += -mfma
+else
+    WEBRTC_AEC3_OTHER_CFLAGS += -msse2
+endif
 else ifneq ($(findstring neon,sse2),)
     export WEBRTC_AEC3_SRC = \
 	common_audio/resampler/sinc_resampler_neon.o \

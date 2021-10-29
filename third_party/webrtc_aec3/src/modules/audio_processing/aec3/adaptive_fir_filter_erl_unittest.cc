@@ -75,6 +75,7 @@ TEST(AdaptiveFirFilter, UpdateErlSse2Optimization) {
   }
 }
 
+#if defined(WEBRTC_ENABLE_AVX2)
 // Verifies that the optimized method for echo return loss computation is
 // bitexact to the reference counterpart.
 TEST(AdaptiveFirFilter, UpdateErlAvx2Optimization) {
@@ -99,6 +100,7 @@ TEST(AdaptiveFirFilter, UpdateErlAvx2Optimization) {
     }
   }
 }
+#endif  // WEBRTC_ENABLE_AVX2
 
 #endif
 

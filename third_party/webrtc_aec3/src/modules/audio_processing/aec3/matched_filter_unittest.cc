@@ -133,6 +133,8 @@ TEST(MatchedFilter, TestSse2Optimizations) {
   }
 }
 
+#if defined(WEBRTC_ENABLE_AVX2)
+
 TEST(MatchedFilter, TestAvx2Optimizations) {
   bool use_avx2 = (GetCPUInfo(kAVX2) != 0);
   if (use_avx2) {
@@ -173,6 +175,8 @@ TEST(MatchedFilter, TestAvx2Optimizations) {
     }
   }
 }
+
+#endif // WEBRTC_ENABLE_AVX2
 
 #endif
 

@@ -21,7 +21,7 @@ namespace rnn_vad {
 
 float VectorMath::DotProductAvx2(rtc::ArrayView<const float> x,
                                  rtc::ArrayView<const float> y) const {
-#ifdef AVX2_EXTENSIONS_ENABLED
+#if defined(WEBRTC_ENABLE_AVX2)
   RTC_DCHECK(cpu_features_.avx2);
   RTC_DCHECK_EQ(x.size(), y.size());
   __m256 accumulator = _mm256_setzero_ps();
@@ -50,7 +50,7 @@ float VectorMath::DotProductAvx2(rtc::ArrayView<const float> x,
     dot_product += x[i] * y[i];
   }
   return dot_product;
-#else
+#else   // WEBRTC_ENABLE_AVX2
   return .0f;
 #endif
 }

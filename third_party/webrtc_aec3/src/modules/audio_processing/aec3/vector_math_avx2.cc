@@ -21,7 +21,7 @@ namespace aec3 {
 
 // Elementwise square root.
 void VectorMath::SqrtAVX2(rtc::ArrayView<float> x) {
-#ifdef AVX2_EXTENSIONS_ENABLED
+#if defined(WEBRTC_ENABLE_AVX2)
   const int x_size = static_cast<int>(x.size());
   const int vector_limit = x_size >> 3;
 
@@ -35,14 +35,14 @@ void VectorMath::SqrtAVX2(rtc::ArrayView<float> x) {
   for (; j < x_size; ++j) {
     x[j] = sqrtf(x[j]);
   }
-#endif
+#endif  // WEBRTC_ENABLE_AVX2
 }
 
 // Elementwise vector multiplication z = x * y.
 void VectorMath::MultiplyAVX2(rtc::ArrayView<const float> x,
                               rtc::ArrayView<const float> y,
                               rtc::ArrayView<float> z) {
-#ifdef AVX2_EXTENSIONS_ENABLED
+#if defined(WEBRTC_ENABLE_AVX2)
   RTC_DCHECK_EQ(z.size(), x.size());
   RTC_DCHECK_EQ(z.size(), y.size());
   const int x_size = static_cast<int>(x.size());
@@ -59,13 +59,13 @@ void VectorMath::MultiplyAVX2(rtc::ArrayView<const float> x,
   for (; j < x_size; ++j) {
     z[j] = x[j] * y[j];
   }
-#endif
+#endif  // WEBRTC_ENABLE_AVX2
 }
 
 // Elementwise vector accumulation z += x.
 void VectorMath::AccumulateAVX2(rtc::ArrayView<const float> x,
                                 rtc::ArrayView<float> z) {
-#ifdef AVX2_EXTENSIONS_ENABLED
+#if defined(WEBRTC_ENABLE_AVX2)
   RTC_DCHECK_EQ(z.size(), x.size());
   const int x_size = static_cast<int>(x.size());
   const int vector_limit = x_size >> 3;
@@ -81,7 +81,7 @@ void VectorMath::AccumulateAVX2(rtc::ArrayView<const float> x,
   for (; j < x_size; ++j) {
     z[j] += x[j];
   }
-#endif
+#endif  // WEBRTC_ENABLE_AVX2
 }
 
 }  // namespace aec3

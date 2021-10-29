@@ -40,8 +40,10 @@ struct FftData {
     im.fill(0.f);
   }
 
+#if defined(WEBRTC_ENABLE_AVX2)
   // Computes the power spectrum of the data.
   void SpectrumAVX2(rtc::ArrayView<float> power_spectrum) const;
+#endif  // WEBRTC_ENABLE_AVX2
 
   // Computes the power spectrum of the data.
   void Spectrum(Aec3Optimization optimization,
@@ -63,9 +65,11 @@ struct FftData {
         power_spectrum[kFftLengthBy2] = re[kFftLengthBy2] * re[kFftLengthBy2] +
                                         im[kFftLengthBy2] * im[kFftLengthBy2];
       } break;
+#if defined(WEBRTC_ENABLE_AVX2)
       case Aec3Optimization::kAvx2:
         SpectrumAVX2(power_spectrum);
         break;
+#endif  // WEBRTC_ENABLE_AVX2
 #endif
       default:
         std::transform(re.begin(), re.end(), im.begin(), power_spectrum.begin(),

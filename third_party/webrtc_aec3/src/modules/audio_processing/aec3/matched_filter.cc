@@ -364,11 +364,13 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
                                      smoothing_, render_buffer.buffer, y,
                                      filters_[n], &filters_updated, &error_sum);
         break;
+#if defined(WEBRTC_ENABLE_AVX2)
       case Aec3Optimization::kAvx2:
         aec3::MatchedFilterCore_AVX2(x_start_index, x2_sum_threshold,
                                      smoothing_, render_buffer.buffer, y,
                                      filters_[n], &filters_updated, &error_sum);
         break;
+#endif // WEBRTC_ENABLE_AVX2
 #endif
 #if defined(WEBRTC_HAS_NEON)
       case Aec3Optimization::kNeon:

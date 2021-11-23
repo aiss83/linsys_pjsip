@@ -9194,72 +9194,79 @@ else
 		  { $as_echo "$as_me:${as_lineno-$LINENO}: result: Checking if libwebrtc is disabled...no" >&5
 $as_echo "Checking if libwebrtc is disabled...no" >&6; }
 		  case $target in
-		      *-apple-darwin_ios*)
-			case $target in
-			    arm64*)
-				ac_webrtc_instset=neon
-				ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
-			    	;;
-			    *arm*)
-				ac_webrtc_instset=neon
-			    	;;
-			    x86*)
-				ac_webrtc_instset=sse2
-			    	;;
-			esac
+		    *-apple-darwin_ios*)
+        case $target in
+            arm64*)
+          ac_webrtc_instset=neon
+          ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
+              ;;
+            *arm*)
+            ac_webrtc_instset=neon
+              ;;
+            x86*)
+            ac_webrtc_instset=sse2
+            ac_webrtc_cflags="-msse2"
+              ;;
+            x86_64*)
+            ac_webrtc_instset=sse2
+            ac_webrtc_cflags="-msse2"
+              ;;
+        esac
+        ;;
+        *android*)
+          case $TARGET_ABI in
+              armeabi-v7a)
+            ac_webrtc_instset=neon
+            ac_webrtc_cflags="-mfloat-abi=softfp -mfpu=neon"
+                ;;
+              armeabi)
+            ac_webrtc_instset=neon
+            ac_webrtc_cflags="-mthumb -mfloat-abi=softfp -mfpu=neon -march=armv7"
+                ;;
+              arm64*)
+            ac_webrtc_instset=neon
+            ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
+                ;;
+              mips64*)
+                ac_webrtc_instset=generic
+                  ;;
+              mips*)
+                ac_webrtc_instset=mips
+                  ;;
+              *x86*)
+                ac_webrtc_instset=sse2
+                ;;
+              *)
+              ac_webrtc_instset=generic
+                ;;
+          esac
 		        ;;
-		      *android*)
-			case $TARGET_ABI in
-			    armeabi-v7a)
-				ac_webrtc_instset=neon
-				ac_webrtc_cflags="-mfloat-abi=softfp -mfpu=neon"
-			    	;;
-			    armeabi)
-				ac_webrtc_instset=neon
-				ac_webrtc_cflags="-mthumb -mfloat-abi=softfp -mfpu=neon -march=armv7"
-			    	;;
-			    arm64*)
-				ac_webrtc_instset=neon
-				ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
-			    	;;
-			    mips64*)
-			    	ac_webrtc_instset=generic
-			        ;;
-			    mips*)
-			    	ac_webrtc_instset=mips
-			        ;;
-			    x86*)
-			    	ac_webrtc_instset=sse2
-			    	;;
-			    *)
-				ac_webrtc_instset=generic
-			    	;;
-			esac
-		        ;;
-		     *mingw* | *cygw*)
-			ac_webrtc_instset=sse2
-			ac_webrtc_cflags="-msse2"
-			;;
-		     *win32* | *w32* | *darwin* | *linux*)
-                         case $target in
-                             armv7l*gnueabihf)
-                                 ac_webrtc_instset=neon
-                                 ac_webrtc_cflags="-DWEBRTC_ARCH_ARMV7 -mfloat-abi=hard -mfpu=neon"
-                                 ;;
-			     arm-apple-darwin*)
-				 ac_webrtc_instset=neon
-				 ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
-			    	 ;;
-			     arm-*)
-			         ac_webrtcinstset=neon
-			         ;;
-                             x86*)
-                                 ac_webrtc_instset=sse2
-                                 ;;
-                         esac
-			;;
+		    *mingw* | *cygw*)
+            ac_webrtc_instset=sse2
+            ac_webrtc_cflags="-msse2"
+            ;;
+		    *win32* | *w32* | *darwin* | *linux*)
+            $as_echo "Linux optimizations...yes"
+            case $target in
+                armv7l*gnueabihf)
+                    ac_webrtc_instset=neon
+                    ac_webrtc_cflags="-DWEBRTC_ARCH_ARMV7 -mfloat-abi=hard -mfpu=neon"
+                    ;;
+			          arm-apple-darwin*)
+				            ac_webrtc_instset=neon
+				            ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
+			    	        ;;
+			          arm-*)
+			              ac_webrtcinstset=neon
+			              ;;
+                x86*)
+                    ac_webrtc_instset=sse2
+                    ac_webrtc_cflags="-msse2"
+                    ;;
+            esac
+			      ;;
 		     *)
-			;;
+			    ;;
 		esac
 
 fi

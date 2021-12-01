@@ -957,7 +957,7 @@ static void systest_aec_test(void)
 	goto on_return;
 
     /* Set EC tail setting to default */
-    status = pjsua_set_ec(PJSUA_DEFAULT_EC_TAIL_LEN, 0);
+    status = pjsua_set_ec(PJSUA_DEFAULT_EC_TAIL_LEN, PJMEDIA_ECHO_WEBRTC_AEC3 | PJMEDIA_ECHO_USE_SW_ECHO);
     if (status != PJ_SUCCESS)
 	goto on_return;
 
@@ -1243,6 +1243,12 @@ int systest_init(void)
 #if defined(OVERRIDE_AUDDEV_REC_LAT) && OVERRIDE_AUDDEV_REC_LAT!=0
     systest.media_cfg.snd_rec_latency = OVERRIDE_AUDDEV_REC_LAT;
 #endif
+
+    /* Enable Echo-canceling algorithm AEC3 */
+    systest.media_cfg.ec_options = PJMEDIA_ECHO_WEBRTC_AEC3;
+    if (systest.media_cfg.ec_options > 0) {
+        systest.media_cfg.ec_options |= PJMEDIA_ECHO_USE_SW_ECHO;
+    }
 
     status = pjsua_init(&systest.ua_cfg, &log_cfg, &systest.media_cfg);
     if (status != PJ_SUCCESS) {

@@ -133,6 +133,9 @@ int main(int argc, char *argv[])
 		case 3:
 		    opt = PJMEDIA_ECHO_WEBRTC;
 		    break;
+		case 4:
+			opt = PJMEDIA_ECHO_WEBRTC_AEC3;	/* new option to test */
+			break;
 		default:
 		    puts("Invalid algorithm");
 		    puts(desc);

@@ -9257,7 +9257,8 @@ $as_echo "Checking if libwebrtc is disabled...no" >&6; }
 				            ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
 			    	        ;;
 			          arm-*)
-			              ac_webrtcinstset=neon
+			              ac_webrtc_instset=neon
+                    ac_webrtc_cflags="-DWEBRTC_ARCH_ARMV7 -mfloat-abi=hard -mfpu=neon"
 			              ;;
                 x86*)
                     ac_webrtc_instset=sse2

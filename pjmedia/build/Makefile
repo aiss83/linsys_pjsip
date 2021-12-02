@@ -158,7 +158,6 @@ export PJMEDIA_TEST_OBJS += codec_vectors.o jbuf_test.o main.o mips_test.o \
 			    rtp_test.o test.o
 export PJMEDIA_TEST_OBJS += sdp_neg_test.o 
 export PJMEDIA_TEST_CFLAGS += $(_CFLAGS)
-export PJMEDIA_TEST_CXXFLAGS += $(_CXXFLAGS)
 export PJMEDIA_TEST_LDFLAGS += $(PJMEDIA_CODEC_LDLIB) \
 			       $(PJMEDIA_VIDEODEV_LDLIB) \
 			       $(PJMEDIA_AUDIODEV_LDLIB) \
